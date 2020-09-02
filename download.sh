@@ -8,7 +8,7 @@ if [ -f $OCTADIR.orig.tar.gz ]; then
 fi
 
 if [ $VERSION_BASE = "8.3" ]; then
-  # wget -O $OCTADIR.tar.gz 'http://49.212.191.63/phpBB/download/file.php?id=2581&sid=62e37407b95ebf6dbafe6ddfb0c35152'
+  wget -O $OCTADIR.tar.gz 'http://49.212.191.63/phpBB/download/file.php?id=2581&sid=62e37407b95ebf6dbafe6ddfb0c35152'
   mkdir -p $OCTADIR
   tar zxvf $OCTADIR.tar.gz
   tar zxvf INSTALLER83/OCTA8PKG/GOURMET/gourmet_08_linux.tar.gz -C $OCTADIR
@@ -19,7 +19,7 @@ if [ $VERSION_BASE = "8.3" ]; then
   cp -rp INSTALLER83/LICENSE $OCTADIR
   cp -rp INSTALLER83/SCRIPTS $OCTADIR
   tar zxvf INSTALLER83/OCTA8PKG/EXTERNAL_SOFTWARE/jogl-v2.2.4-linux-amd64.tar.gz -C $OCTADIR/GOURMET/lib/linux_64
-  # rm -rf INSTALLER83
+  rm -rf INSTALLER83
   (cd $OCTADIR; find . -name *.ual | xargs rm -f)
   (cd $OCTADIR; find . -name *_out.udf | xargs rm -f)
   (cd $OCTADIR; find . -name *_uot.udf | xargs rm -f)
@@ -36,4 +36,4 @@ else
 fi
 
 tar zcvf octa_$VERSION_BASE.orig.tar.gz octa_$VERSION_BASE
-# rm -rf octa_$VERSION_BASE
+rm -rf octa_$VERSION_BASE
