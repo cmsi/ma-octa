@@ -18,10 +18,14 @@ export PF_FILES = $(OCTA_HOME)/gourmet
 export PF_ENGINE = $(OCTA_HOME)/engines
 
 DEB_HOST_ARCH_CPU = $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
+export PF_ARCH = linux
+export BUILD_FLAG =
 ifeq ($(DEB_HOST_ARCH_CPU), amd64)
   export PF_ARCH = linux_64
-else
-  export PF_ARCH = linux
+endif
+ifeq ($(DEB_HOST_ARCH_CPU), arm64)
+  export PF_ARCH = linux_64
+  export BUILD_FLAG = --build=arm
 endif
 
 %:
@@ -31,4 +35,4 @@ override_dh_update_autotools_config:
 	/bin/true
 
 override_dh_auto_configure:
-	(cd GOURMET/src && ./configure --prefix=$(PF_FILES) --with-engine=$(PF_ENGINE) --with-python=python3 --with-java-home --with-jogl-lib=$(CURDIR)/GOURMET/lib/$(PF_ARCH)/jogl-v2-linux --with-jogl-jar=$(CURDIR)/GOURMET/lib/$(PF_ARCH)/jogl-v2-linux)
+	(cd GOURMET/src && ./configure $(BUILD_FLAG) --prefix=$(PF_FILES) --with-engine=$(PF_ENGINE) --with-python=python3 --with-java-home --with-jogl-lib=$(CURDIR)/GOURMET/lib/$(PF_ARCH)/jogl-v2-linux --with-jogl-jar=$(CURDIR)/GOURMET/lib/$(PF_ARCH)/jogl-v2-linux)
